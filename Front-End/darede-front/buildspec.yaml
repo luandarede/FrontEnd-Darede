@@ -1,0 +1,15 @@
+#Arquivo que faz a especificação de como o build vai acontecer
+#ler o arquivo, fazer o build e copiar para o bucket
+version: 0.2
+phases: 
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run-script build
+  post_build:
+    commands:
+      - aws s3 cp build s3://front-end-grupo17 --recursive --acl public-read
